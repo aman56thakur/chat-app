@@ -30,7 +30,32 @@ const autoscroll = () => {
     $messages.scrollTop = $messages.scrollHeight
 }
 
+// async function postData(url = '', data = {}) {
+//   const response = await fetch(url, {
+//     method: 'POST',
+//     mode: 'no-cors',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(data),
+//   })
+//   console.log(response)
+//   return response.json() // will return object
+// }
+
 socket.on('message', (message) => {
+  // const url = 'https://encryption-api-node.herokuapp.com/encrypt/aman'
+  // const obj = { data: 'aman' }
+
+  // fetch(url)
+  //   .then((response) => response.json())
+  //   .then((data) => console.log(data))
+
+  // postData(url, obj).then((data) => {
+  //   console.log(data) // JSON data parsed by `data.json()` call
+  // })
+
+  // TODO add encryption
   const html = Mustache.render(messageTemplate, {
     username: message.username,
     message: message.text,
@@ -62,6 +87,7 @@ $messageForm.addEventListener('submit', (e) => {
   e.preventDefault()
   $messageFormButton.setAttribute('disabled', 'disabled')
   const msg = e.target.elements.message.value
+  // TODO add encryption
   $messageFormInput.value = ''
   $messageFormInput.focus()
   socket.emit('sendMessage', msg, () => {
